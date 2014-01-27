@@ -1,0 +1,52 @@
+<!-- Pong Game with WebGL -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pong</title>
+
+    <!-- Initialize Canvas Element -->
+    <style>
+    	canvas {
+    		position: absolute;
+    		top: 0px;
+    		left: 0px;
+    		background: transparent;
+    	}
+
+    	#background {
+    		z-index: -2;
+    	}
+    	#main {
+    		z-index: -1;
+    	}
+    	#ship {
+    		z-index: 0;
+    	}
+    </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href = "css/bootstrap.min.css" rel = "stylesheet">
+    <link href = "css/styles.css" rel = "stylesheet">
+  </head>
+  
+  <body>
+  	<!-- The canvas for the panning background -->
+  	<canvas id="background" width="600" height="360">
+  	Your Browser does not support canvas. Please try a different browser.  		
+  	</canvas>
+
+  	<!-- The canvas for all enemy ships and bullets -->
+  	<canvas id="main" width="600" height="360"></canvas>
+
+  	<!-- The canvas the ship uses (can only move up one forth the screen) -->
+  	<canvas id="ship" width="600" height="360"></canvas>
+
+  	FUCKYOU
+
+  	<script src="space_shooter_part_one.js"></script>
+  </body>
+
+</html>
+
+
