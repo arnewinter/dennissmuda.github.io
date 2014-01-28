@@ -176,9 +176,9 @@ function Bullet(object) {
 		this.alive = false;
 		this.isColliding = false;
 	};
+
 }
 Bullet.prototype = new Drawable();
-
 
 
 /**
@@ -368,6 +368,9 @@ Bullet.prototype = new Drawable();
 }
 
 
+
+
+
 /** 
  * Custom Pool object. Holds Bullet objects to be managed to prevent
  * garbage collection.
@@ -405,12 +408,12 @@ function Pool(maxSize) {
 		if(object == "bullet") {
 			for (var i = 0; i < size; i++) {
 			// Initialize the bullet object
-			var bullet = new Bullet("bullet");
-			bullet.init(0,0, imageRepository.bullet.width,
-							 imageRepository.bullet.height);
-			bullet.collidableWith ="enemy";
-			bullet.type = "bullet";
-			pool[i] = bullet;
+				var bullet = new Bullet("bullet");
+				bullet.init(0,0, imageRepository.bullet.width,
+								 imageRepository.bullet.height);
+				bullet.collidableWith ="enemy";
+				bullet.type = "bullet";
+				pool[i] = bullet;
 			}
 		}
 		else if(object == "enemy") {
@@ -530,7 +533,7 @@ function Ship()  {
             }
 		}
 
-		if(KEY_STATUS.space && counter >= fireRate) {
+		if(KEY_STATUS.space && counter >= fireRate && !this.isColliding) {
 			this.fire();
 			counter = 0;
 		}
@@ -653,13 +656,13 @@ function Game() {
 	 		Background.prototype.canvasWidth  = this.bgCanvas.width;
 	 		Background.prototype.canvasHeight = this.bgCanvas.height;
 
-	 		Ship.prototype.context     = this.shipContext;
-	 		Ship.prototype.canvasWidth = this.shipCanvas.width;
-	 		Ship.prototype.canvasHeight= this.shipCanvas.height;
+	 		Ship.prototype.context      = this.shipContext;
+	 		Ship.prototype.canvasWidth  = this.shipCanvas.width;
+	 		Ship.prototype.canvasHeight = this.shipCanvas.height;
 
-	 		Bullet.prototype.context 	 = this.mainContext;
-	 		Bullet.prototype.canvasWidth = this.mainCanvas.width;
-	 		Bullet.prototype.canvasHeight= this.mainCanvas.height;
+	 		Bullet.prototype.context 	  = this.mainContext;
+	 		Bullet.prototype.canvasWidth  = this.mainCanvas.width;
+	 		Bullet.prototype.canvasHeight = this.mainCanvas.height;
 
 	 		Enemy.prototype.context 	 = this.mainContext;
 	 		Enemy.prototype.canvasWidth  = this.mainCanvas.width;
@@ -730,7 +733,7 @@ function animate() {
 
 	detectCollision();
 
-	// Animate game Objects
+	// Animate game objects
 	requestAnimFrame(animate);
 	game.background.draw();
 	game.ship.move();
@@ -761,8 +764,6 @@ function detectCollision() {
 		}
 	}
 };
-
-
 
 // The Keycodes that will be mapped when a user presses a button
 // Original code by Doug McInnes
