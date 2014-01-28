@@ -142,7 +142,8 @@ function Bullet(object) {
 
 		if(self === "bullet" && this.y <= 0 - this.height) {
 			return true;
-		} else if(self === "enemyBullet" && this.y >= this.canvasHeight) {
+		} 
+		else if(self === "enemyBullet" && this.y >= this.canvasHeight) {
 			return true;
 		}
 		else {
@@ -272,7 +273,6 @@ function Ship()  {
 	this.speed = 3;
 	this.bulletPool = new Pool(30);
 	this.bulletPool.init("bullet");
-
 	var fireRate = 15;
 	var counter  = 0;
 
@@ -357,10 +357,46 @@ function Enemy() {
 	// Move the enemy
 	this.draw = function() {
 		this.context.clearRect(this.x-1, this.y, this.width+1, this.height);
-		this.//ldökfgalöfgkasjfdglkäöajsfdglkafsdjglafgj
-		//ASDÖK ASJDKÖAS HJDÖ HJASLgsdfkölsdfgjsdölfgkdsjföglkfsdgjsdfglkf
+		this.x += this.speedX;
+		this.y += this.speedY;
+		if(this.x <= this.leftEdge){
+			this.speedX = this.speed;
+		}
+		else if(this.x >= this.rightEdge + this.width) {
+			this.speedX = -this.speed;
+		}
+		else if(this.y >= this.bottomEdge) {
+			this.speed  = 1.5;
+			this.speedY = 0;
+			this.y     -= 5;
+			this.speedX = -this.speed;
+		}
+
+		this.context.drawImage(imageRepository.enemy, this.x, this.y);
+
+		// Enemy has a chance to shoot every movement
+		chance = Math.floor(Math.random()*101);
+		if(chance/100 < percentFire) {
+			this.fire();
+		}
+	};
+
+	// Fires a bullet
+	this.fire = function() {
+		game.enemyBulletPool.get(this.x + this.width/2, this.y + this.height, -2.5);
 	}
+
+	// Resets the enemy values
+	this.clear = function() {
+		this.x = 0;
+		this.y = 0;
+		this.speedX = 0;
+		this.speed  = 0;
+		this.speedY = 0;
+		this.alive  = false;
+	};
 }
+Enemy.prototype = new Drawable();
 
 
 
@@ -400,6 +436,10 @@ function Game() {
 	 		Bullet.prototype.canvasWidth = this.mainCanvas.width;
 	 		Bullet.prototype.canvasHeight= this.mainCanvas.height;
 
+	 		Enemy.prototype.context = this.mainContext;
+	 		Enemy.prototype.canvasWidth  = this.mainCanvas.width;
+	 		Enemy.prototype.canvasHeight = this.mainCanvas.height;
+
 	 		// Initialize the background object
 	 		this.background = new Background();
 	 		this.background.init(0,0); // Set draw point to 0,0
@@ -411,6 +451,26 @@ function Game() {
 	 		var shipStartY = this.shipCanvas.height/4*3 + imageRepository.spaceship.height*2;
 	 		this.ship.init(shipStartX, shipStartY, imageRepository.spaceship.width,
 	 											   imageRepository.spaceship.height);
+
+	 		// Initialize the enemy pool object
+	 		this.enemyPool = new Pool(30);
+	 		this.enemyPool.init("enemy");
+	 		var height = imageRepository.enemy.height;
+	 		var width  = imageRepository.enemy.width;
+	 		var x = 100;
+	 		var y = -height;
+	 		var spacer = y * 1.5;
+	 		for(var i = 1; i <= 18; i++) {
+	 			this.enemyPool.get(x,y,2);
+	 			x += width + 25;
+	 			if(i % 6 == 0) {
+	 				x = 100;
+	 				y += spacer;
+	 			}
+	 		}
+
+	 		this.enemyBulletPool = new Pool(50);
+	 		this.enemyBulletPool.init("enemyBullet");
 
 	 		return true;
 	 	} 
@@ -437,6 +497,8 @@ function animate() {
 	game.background.draw();
 	game.ship.move();
 	game.ship.bulletPool.animate();
+	game.enemyPool.animate();
+	game.enemyBulletPool.animate();
 }
 
 // The Keycodes that will be mapped when a user presses a button
