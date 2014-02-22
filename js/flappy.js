@@ -13,7 +13,7 @@ game_state.main.prototype = {
 
     create: function() { 
     	this.bird = this.game.add.sprite(100, 245, 'bird');
-        this.bird.body.gravity.y = 1000;
+        this.bird.body.gravity.y = 100;
         
         var space_key = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         space_key.onDown.add(this.jump, this);
