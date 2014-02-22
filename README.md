@@ -6,7 +6,7 @@ As for planned projects, I intend to challenge myself learning new languages/pro
 
 Games
 -----
-As for right now, I will be trying to make simple games using the [Phaser Framework](http://phaser.io).
+As for right now, I will be trying to make simple games using the [Phaser Framework](http://phaser.io), [SDL 2.0](http://www.libsdl.org/‎)(C++) and Java.
 
 
 Apps
