@@ -64,7 +64,7 @@ game_state.main.prototype = {
         // Remove the timer
         this.game.time.events.remove(this.timer);
 
-        // Start the 'main' state, which restarts the game
+        // Start the 'main' state, which restarts the gamess
         this.game.state.start('main');
     },
 
@@ -83,7 +83,7 @@ game_state.main.prototype = {
         pipe.outOfBoundsKill = true;
     },
 
-    // Add a row of 6 pipes with a hole somewhere in the middle
+    // Add a row of 6 pipes with a hole somewhere in the middlelhkhjlkhglk
     add_row_of_pipes: function() {
         var hole = Math.floor(Math.random()*5)+1;
         
