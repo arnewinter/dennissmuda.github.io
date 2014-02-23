@@ -8,7 +8,7 @@ game_state.main.prototype = {
 
     // PRELOAD FUNCTION
     preload: function() { 
-        this.game.stage.backgroundColor = '#71c5cf';
+        this.game.stage.backgroundColor = '#88c7ea';
         this.game.load.image('bird', 'assets/bird.png');
         this.game.load.image('pipe', 'assets/pipe.png');
     },
