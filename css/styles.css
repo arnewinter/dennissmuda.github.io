@@ -16,6 +16,10 @@ body {
 	margin: 0 auto -60px;
 }
 
+#wrapper {
+    align-content: center;
+}
+
 /* Set the fixed height of the footer here */
 #push,
 #footer {
