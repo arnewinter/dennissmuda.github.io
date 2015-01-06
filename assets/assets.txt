@@ -20,9 +20,13 @@ i:data/text.png:8879:image/png
 t:data/upheavtt.fnt:11641:application/unknown
 i:data/upheavtt.png:4833:image/png
 b:data/upheavtt.ttf:41836:application/unknown
+i:icon_16.png:90:image/png
+i:icon_32.png:110:image/png
+i:icon_64.png:164:image/png
 i:idleCity.png:454:image/png
+i:idleCityMaterial.png:457:image/png
 t:pack.pack:468:application/unknown
-i:pack.png:5102:image/png
+i:pack.png:5114:image/png
 t:com/badlogic/gdx/graphics/g3d/particles/particles.fragment.glsl:770:application/unknown
 t:com/badlogic/gdx/graphics/g3d/particles/particles.vertex.glsl:2730:application/unknown
 t:com/badlogic/gdx/graphics/g3d/shaders/default.fragment.glsl:5163:application/unknown
