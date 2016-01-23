@@ -1,45 +1,56 @@
-/*
- * Custom CSS to customize Bootstrap
- */
-html,
+* {
+  font-family: 'Fira Mono';
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-	height: 100%;
-     font-family: 'Lato', sans-serif;
-      font-weight: 300; 
+  width: 100%;
+  height: 100%;
+  background-color: rgb(26, 26, 26);
 }
 
-#wrap {
-	min-height: 100%;
-	height: auto !important;
-	height: 100%;
-
-	margin: 0 auto -60px;
+h1 {
+  padding: 1rem;
+  background-color: #F3A03A;
+  background-color: rgb(231, 76, 60);
+  color: rgb(26, 26, 26);
 }
 
-#wrapper {
-    align-content: center;
+canvas {
+  margin: 1rem auto;
+  border: 5px solid white;
 }
 
-/* Set the fixed height of the footer here */
-#push,
-#footer {
-	height: 60px;
+
+header {
+    position: relative;
+    width: 100%;
 }
 
-#footer {
-	position: absolute;
-	bottom: 0;
-	background-color: #fff;
-
+main {
+  position: relative;
+  padding: 1rem;
+  margin-top: 2rem;
 }
 
-.credit {
-	color: grey;
-	font-size: 14px;
+
+/** Special classes */
+::-moz-selection { /* Code for Firefox */
+    color: white;
+    background: rgb(42, 42, 42);
 }
 
-p {
-      font-family: 'Lato', sans-serif;
-      font-weight: 300; 
+::selection {
+    color: #fff; 
+    background: rgb(42, 42, 42);
 }
 
+a, a:visited, a:active {
+  color: rgb(46, 204, 113);
+}
+
+a:hover {
+  text-decoration: none;
+}
