@@ -13,6 +13,7 @@ export default class Enemy extends Phaser.Sprite {
     this.body.setSize(20, 20, 0, -5);
     // Create Bullets
     this.createBulletPool();
+    this.createExplosion();
 
     this.emitter = this.game.add.emitter(this.body.x, this.body.y, 200);
     this.emitter.makeParticles('fire');
@@ -45,6 +46,28 @@ export default class Enemy extends Phaser.Sprite {
     this.shotDelay = 500;
   }
 
+  createExplosion() {
+    this.explosionPool = this.game.add.group();
+    this.explosionPool.enableBody = true;
+    this.explosionPool.physicsBodyType = Phaser.Physics.ARCADE;
+    this.explosionPool.createMultiple(100, 'explosion');
+    this.explosionPool.setAll('anchor.x', 0.5);
+    this.explosionPool.setAll('anchor.y', 0.5);
+    // Set explosion animation
+    this.explosionPool.forEach(function (explosion) {
+      explosion.animations.add('boom');
+    });
+  }
+
+  explode(sprite) {
+    if (this.explosionPool.countDead() === 0) {
+      return;
+    }
+    var explosion = this.explosionPool.getFirstExists(false);
+    explosion.reset(this.body.x, this.body.y);
+    explosion.play('boom', 15, false, true);
+  }
+
   update() {
     // this.shoot();
   }
@@ -52,6 +75,7 @@ export default class Enemy extends Phaser.Sprite {
   damage() {
     console.log("enemy damage");
     this.fireParticles();
+    this.explode();
   }
 
   shoot() {

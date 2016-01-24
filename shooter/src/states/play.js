@@ -15,7 +15,7 @@ export default class Play extends Phaser.State {
     this.load.spritesheet('greenEnemy', 'assets/enemy.png', 32, 32);
     this.load.spritesheet('whiteEnemy', 'assets/shooting-enemy.png', 32, 32);
     this.load.spritesheet('boss', 'assets/boss.png', 93, 75);
-    this.load.spritesheet('explosion', 'assets/explosion.png', 32, 32);
+    this.load.spritesheet('explosion', 'assets/explosion.png', 64, 64);
     this.load.spritesheet('player', 'assets/player_full.png', 64, 64, 12);
     this.load.image('fire', 'assets/fire.png');
   }
