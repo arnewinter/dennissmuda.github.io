@@ -16,14 +16,15 @@ export default class Enemy extends Phaser.Sprite {
     this.createBulletPool();
     this.createExplosion();
 
+    // Damage particle emitter
     this.emitter = this.game.add.emitter(this.body.x, this.body.y, 200);
     this.emitter.makeParticles('fire');
     this.emitter.gravity = 200;
     this.emitter.setAlpha(1, 0, 3000);
     this.emitter.setScale(0.8, 0, 0.8, 0, 3000);
     this.emitter.width = 8;
-    this.emitter.setYSpeed(100, 200);
-    this.emitter.setXSpeed(-0.1, .1);
+    this.emitter.setYSpeed(-100, -200);
+    this.emitter.setXSpeed(-100, 100);
     this.emitter.minRotation = 0;
     this.emitter.maxRotation = 0;
     // Add to stage
@@ -81,12 +82,11 @@ export default class Enemy extends Phaser.Sprite {
   damage() {
     console.log("enemy damage");
     this.fireParticles();
-    this.health--;
-    if (this.health === 0) {
-      this.explode();
-      this.destroy();
-    }
-    // this.explode();
+    // this.health--;
+    // if (this.health === 0) {
+    //   this.explode();
+    //   this.destroy();
+    // }
   }
 
   shoot() {
@@ -105,12 +105,7 @@ export default class Enemy extends Phaser.Sprite {
   fireParticles() {
     this.emitter.x = this.body.center.x;
     this.emitter.y = this.body.center.y;
-    this.emitter.start(true , 300, 1, 1);
+    this.emitter.start(true , 300, 10, 10);
 
-  }
-
-
-  getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }

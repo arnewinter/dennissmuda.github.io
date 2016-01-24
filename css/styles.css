@@ -62,13 +62,19 @@ header .title-container {
 }
 
 
+
+
+
 /**
  * Main Style
  */
 main {
-  /*padding: 1rem;*/
+  padding: 1rem;
 }
 
+main h2:hover {
+  color: #fff;
+}
 
 .desc {
   width: 100%;
@@ -76,7 +82,7 @@ main {
 }
 
 
-@media all and (max-width: 1024) {
+@media all and (max-width: 768px) {
   main {
     padding: 0;
   }
