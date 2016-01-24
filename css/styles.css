@@ -9,31 +9,68 @@ body {
   width: 100%;
   height: 100%;
   background-color: rgb(26, 26, 26);
+  color: rgb(170, 170, 170);
 }
 
-h1 {
-  padding: 1rem;
-  background-color: #F3A03A;
-  background-color: rgb(231, 76, 60);
-  color: rgb(26, 26, 26);
-}
+
 
 canvas {
   margin: 1rem auto;
   border: 5px solid white;
 }
 
-
+/**
+ * Header Style
+ */
 header {
     position: relative;
+    background-color: rgb(231, 76, 60);
     width: 100%;
 }
 
+header h1 {
+  display: inline-block;
+  padding: 1rem;
+
+  color: rgb(26, 26, 26);
+}
+
+header a.back-button, header .home-button {
+  display: inline-block;
+  padding: 2rem;
+  color: rgb(170, 170, 170);
+  background-color: rgb(26,26,26);
+  height: 100%;
+  cursor: pointer;
+}
+
+header .back-button:hover {
+  color: white;
+}
+
+
+/**
+ * Main Style
+ */
 main {
   position: relative;
   padding: 1rem;
   margin-top: 2rem;
 }
+
+
+.desc {
+  width: 100%;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
 
 
 /** Special classes */
@@ -45,6 +82,15 @@ main {
 ::selection {
     color: #fff; 
     background: rgb(42, 42, 42);
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* IE/Edge */
+  user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
 }
 
 a, a:visited, a:active {
