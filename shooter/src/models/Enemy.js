@@ -23,7 +23,7 @@ export default class Enemy extends Phaser.Sprite {
     this.emitter.setAlpha(1, 0, 3000);
     this.emitter.setScale(0.8, 0, 0.8, 0, 3000);
     this.emitter.width = 8;
-    this.emitter.setYSpeed(-100, -200);
+    this.emitter.setYSpeed(100, 200);
     this.emitter.setXSpeed(-100, 100);
     this.emitter.minRotation = 0;
     this.emitter.maxRotation = 0;
@@ -62,31 +62,31 @@ export default class Enemy extends Phaser.Sprite {
     });
   }
 
-  explode(sprite) {
-    if (this.explosionPool.countDead() === 0) {
-      console.log("no expl");
-      return;
-    }
-    var explosion = this.explosionPool.getFirstExists(false);
-    let impactX = getRandomInt(-3, 3);
-    let impactY = getRandomInt(-3, 3);
-    console.log(this.body.center.x);
-    explosion.reset(this.body.center.x + impactX, this.body.center.y + impactY);
-    explosion.play('boom', 15, false, true);
-  }
+  // explode(sprite) {
+  //   if (this.explosionPool.countDead() === 0) {
+  //     console.log("no expl");
+  //     return;
+  //   }
+  //   var explosion = this.explosionPool.getFirstExists(false);
+  //   let impactX = getRandomInt(-3, 3);
+  //   let impactY = getRandomInt(-3, 3);
+  //   console.log(this.body.center.x);
+  //   explosion.reset(this.body.center.x + impactX, this.body.center.y + impactY);
+  //   explosion.play('boom', 15, false, true);
+  // }
 
   update() {
     // this.shoot();
   }
 
   damage() {
-    console.log("enemy damage");
+    console.log("enemy damage" + this.health);
     this.fireParticles();
-    // this.health--;
-    // if (this.health === 0) {
-    //   this.explode();
-    //   this.destroy();
-    // }
+    this.health--;
+    if (this.health === 0) {
+      this.explode();
+      this.destroy();
+    }
   }
 
   shoot() {
@@ -101,11 +101,20 @@ export default class Enemy extends Phaser.Sprite {
     bullet.body.velocity.y = 150;
   }
 
+  explode() {
+    this.emitter.setYSpeed(-200, 200);
+    this.emitter.setXSpeed(-100, 100);
+    this.emitter.x = this.body.center.x;
+    this.emitter.y = this.body.center.y;
+    this.emitter.start(true , 1000, 10, 25);
+  }
+
 
   fireParticles() {
+    this.emitter.setYSpeed(100, 200);
+    this.emitter.setXSpeed(-100, 100);
     this.emitter.x = this.body.center.x;
     this.emitter.y = this.body.center.y;
     this.emitter.start(true , 300, 10, 10);
-
   }
 }
