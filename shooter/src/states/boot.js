@@ -16,14 +16,14 @@ export default class Boot extends Phaser.State {
     } else {
       // Mobile specific settings
       this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-      this.scale.minWidth  = 480;
-      this.scale.minHeight = 260;
+      this.scale.minWidth  = 320;
+      this.scale.minHeight = 480;
       this.scale.maxWidth  = 1024;
       this.scale.maxHeight = 768;
-      this.scale.forceLandscape = true;
+      // this.scale.forceLandscape = true;
       this.scale.pageAlignHorizontally = true;
       this.scale.pageAlignHorizontally = false;
-      this.scale.setScreenSize(true);
+      // this.scale.setScreenSize(true);
     } 
 
     this.state.start('Preload');

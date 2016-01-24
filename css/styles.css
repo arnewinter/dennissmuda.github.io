@@ -4,6 +4,7 @@
   font-weight: 700;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -33,14 +34,17 @@ header {
 
 header h1 {
   display: inline-block;
-  padding: 1rem;
+  /*padding: 1rem;*/
+  position: absolute;
+  top: -15px;
+  width: 100%;
 
   color: rgb(26, 26, 26);
 }
 
 header a.back-button, header .home-button {
   display: inline-block;
-  padding: 2rem;
+  padding: 1rem;
   color: rgb(170, 170, 170);
   background-color: rgb(26,26,26);
   height: 100%;
@@ -51,14 +55,18 @@ header .back-button:hover {
   color: white;
 }
 
+header .title-container {
+  position: relative;
+  display: inline-block;
+  width: 80%;
+}
+
 
 /**
  * Main Style
  */
 main {
-  position: relative;
-  padding: 1rem;
-  margin-top: 2rem;
+  /*padding: 1rem;*/
 }
 
 
@@ -67,6 +75,12 @@ main {
   text-align: center;
 }
 
+
+@media all and (max-width: 1024) {
+  main {
+    padding: 0;
+  }
+}
 
 
 
@@ -103,3 +117,4 @@ a, a:visited, a:active {
 a:hover {
   text-decoration: none;
 }
+
