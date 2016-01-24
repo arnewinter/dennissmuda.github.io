@@ -1,4 +1,4 @@
-
+import { getRandomInt, square } from '../util/helper';
 export default class Enemy extends Phaser.Sprite {
   
   constructor(game, x, y, frame) {
@@ -9,6 +9,7 @@ export default class Enemy extends Phaser.Sprite {
     this.animations.add('ghost', [3, 0, 3, 2], 20, true);
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.speed = 200;
+    this.health = 5;
     this.body.collideWorldBounds = true;
     this.body.setSize(20, 20, 0, -5);
     // Create Bullets
@@ -28,6 +29,7 @@ export default class Enemy extends Phaser.Sprite {
     // Add to stage
     this.game.stage.addChild(this);
     this.play('fly');
+
   }
 
   createBulletPool() {
@@ -52,7 +54,7 @@ export default class Enemy extends Phaser.Sprite {
     this.explosionPool.physicsBodyType = Phaser.Physics.ARCADE;
     this.explosionPool.createMultiple(100, 'explosion');
     this.explosionPool.setAll('anchor.x', 0.5);
-    this.explosionPool.setAll('anchor.y', 0.5);
+    this.explosionPool.setAll('anchor.y', 0.25);
     // Set explosion animation
     this.explosionPool.forEach(function (explosion) {
       explosion.animations.add('boom');
@@ -61,10 +63,14 @@ export default class Enemy extends Phaser.Sprite {
 
   explode(sprite) {
     if (this.explosionPool.countDead() === 0) {
+      console.log("no expl");
       return;
     }
     var explosion = this.explosionPool.getFirstExists(false);
-    explosion.reset(this.body.x, this.body.y);
+    let impactX = getRandomInt(-3, 3);
+    let impactY = getRandomInt(-3, 3);
+    console.log(this.body.center.x);
+    explosion.reset(this.body.center.x + impactX, this.body.center.y + impactY);
     explosion.play('boom', 15, false, true);
   }
 
@@ -75,7 +81,12 @@ export default class Enemy extends Phaser.Sprite {
   damage() {
     console.log("enemy damage");
     this.fireParticles();
-    this.explode();
+    this.health--;
+    if (this.health === 0) {
+      this.explode();
+      this.destroy();
+    }
+    // this.explode();
   }
 
   shoot() {
@@ -96,5 +107,10 @@ export default class Enemy extends Phaser.Sprite {
     this.emitter.y = this.body.center.y;
     this.emitter.start(true , 300, 1, 1);
 
+  }
+
+
+  getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
