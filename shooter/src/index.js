@@ -15,7 +15,7 @@ class Game extends Phaser.Game {
     this.state.add('Menu', Menu);
     this.state.add('Play', Play);
     // Start the game state 'boot' for prod
-    this.state.start('Play');
+    this.state.start('Boot');
   }
 
 }

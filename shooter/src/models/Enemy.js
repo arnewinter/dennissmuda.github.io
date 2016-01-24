@@ -13,6 +13,17 @@ export default class Enemy extends Phaser.Sprite {
     this.body.setSize(20, 20, 0, -5);
     // Create Bullets
     this.createBulletPool();
+
+    this.emitter = this.game.add.emitter(this.body.x, this.body.y, 200);
+    this.emitter.makeParticles('fire');
+    this.emitter.gravity = 200;
+    this.emitter.setAlpha(1, 0, 3000);
+    this.emitter.setScale(0.8, 0, 0.8, 0, 3000);
+    this.emitter.width = 8;
+    this.emitter.setYSpeed(100, 200);
+    this.emitter.setXSpeed(-0.1, .1);
+    this.emitter.minRotation = 0;
+    this.emitter.maxRotation = 0;
     // Add to stage
     this.game.stage.addChild(this);
     this.play('fly');
@@ -38,6 +49,11 @@ export default class Enemy extends Phaser.Sprite {
     // this.shoot();
   }
 
+  damage() {
+    console.log("enemy damage");
+    this.fireParticles();
+  }
+
   shoot() {
     if (!this.alive || this.nextShotAt > this.game.time.now) {
       return;
@@ -48,5 +64,13 @@ export default class Enemy extends Phaser.Sprite {
     bullet = this.bulletPool.getFirstExists(false);
     bullet.reset(this.x, this.y);
     bullet.body.velocity.y = 150;
+  }
+
+
+  fireParticles() {
+    this.emitter.x = this.body.center.x;
+    this.emitter.y = this.body.center.y;
+    this.emitter.start(true , 300, 1, 1);
+
   }
 }

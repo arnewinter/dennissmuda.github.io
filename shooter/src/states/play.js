@@ -24,6 +24,7 @@ export default class Play extends Phaser.State {
     this.sea = this.add.tileSprite(0, 0, 320, 480, 'sea');
     this.setupPlayer();
     this.enemy = new Enemy(this.game, 160, 100, 'greenEnemy');
+
     // this.setupEnemies();
     // this.setupExplosions();
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -169,8 +170,7 @@ export default class Play extends Phaser.State {
   }
 
   setupText() {
-    this.instructions = this.add.text(160, 400, 'Use Arrow Keys to Move, X to Fire\n' + 
-      'Tapping/Clicking does both', {
+    this.instructions = this.add.text(160, 400, 'Use Arrow Keys to Move, X to Fire\n', {
         font: '14px Fira Mono',
         fill: '#fff',
         align: 'center'
@@ -257,28 +257,7 @@ export default class Play extends Phaser.State {
   }
 
   spawnEnemies() {
-    if (this.nextEnemyAt < this.time.now && this.enemyPool.countDead() > 0) {
-      this.nextEnemyAt = this.time.now + this.enemyDelay;
-
-      this.enemyDelay = this.rnd.integerInRange(300, 1000);
-      var enemy = this.enemyPool.getFirstExists(false);
-      // width = 320, enemy width 32, center is 32/2 = 16
-      enemy.reset(this.rnd.integerInRange(20, 304), 0, this.enemyInitialHealth);
-      enemy.body.velocity.y = this.rnd.integerInRange(30, 60);
-      enemy.play('fly');
-    }
-    var shooter = this.shooterPool.getFirstExists(false);
-    // Spawn at a random location at the top
-    shooter.reset(this.rnd.integerInRange(20, 448), 0, this.shooterInitialHealth);
-    // Choose a random target location at the bottom
-    var target = this.rnd.integerInRange(20, 448);
-    // Move to target and rotate the sprite accordingly
-    shooter.rotation = this.physics.arcade.moveToXY(
-      shooter, target, 320, this.rnd.integerInRange(30, 80)
-    ) - Math.PI / 2;
-
-    shooter.play('fly');
-    shooter.nextShotAt = 0;
+    
   }
 
   enemyFire() {
@@ -371,10 +350,11 @@ export default class Play extends Phaser.State {
     explosion.play('boom', 15, false, true);
   }
 
-  enemyHit(bullet, enemy) {
+  enemyHit(enemy, bullet) {
     console.log("enemyHIt");
-    // bullet.kill();
-    // this.damageEnemy(enemy, 1);
+    bullet.kill();
+    this.addToScore(10);
+    this.damageEnemy(enemy, 1);
   }
 
   playerHit(player, enemy) {
@@ -408,21 +388,21 @@ export default class Play extends Phaser.State {
   damageEnemy(enemy, damage) {
     // detail : http://docs.phaser.io/Phaser.Sprite.html#damage
     enemy.damage(damage);
-    if (enemy.alive) {
-      enemy.play('hit');
-    } else {
-      this.explode(enemy);
-      this.spawnPowerUp(enemy);
-      this.addToScore(enemy.reward);
+    // if (enemy.alive) {
+    //   enemy.play('hit');
+    // } else {
+    //   this.explode(enemy);
+    //   this.spawnPowerUp(enemy);
+    //   this.addToScore(enemy.reward);
 
-      if (enemy.key === 'boss') {
-        this.enemyPool.destroy();
-        this.shooterPool.destroy();
-        this.bossPool.destroy();
-        this.enemyBulletPool.destroy();
-        this.displayEnd(true);
-      }
-    }
+    //   if (enemy.key === 'boss') {
+    //     this.enemyPool.destroy();
+    //     this.shooterPool.destroy();
+    //     this.bossPool.destroy();
+    //     this.enemyBulletPool.destroy();
+    //     this.displayEnd(true);
+    //   }
+    // }
   }
 
   spawnPowerUp(enemy) {

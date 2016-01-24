@@ -1,5 +1,6 @@
 * {
-  font-family: 'Fira Mono';
+  /*font-family: 'Fira Mono';*/
+  font-family: 'Consolas';
   font-weight: 700;
   margin: 0;
   padding: 0;
@@ -17,6 +18,8 @@ body {
 canvas {
   margin: 1rem auto;
   border: 5px solid white;
+  height: 100%;
+  width: 100%;
 }
 
 /**

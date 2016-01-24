@@ -96,7 +96,7 @@ export default class Player extends Phaser.Sprite {
     this.body.velocity.x = 0;
     this.body.velocity.y = 0;
 
-    if (this.game.input.keyboard.isDown(Phaser.Keyboard.X)) this.shoot("up");
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.X) || this.game.input.activePointer.isDown) this.shoot("up");
     if (this.game.input.keyboard.isDown(Phaser.Keyboard.Y)) this.levelUp();
 
 
@@ -116,6 +116,15 @@ export default class Player extends Phaser.Sprite {
     } else {
       this.play('fly');
     }
+
+
+    // Handler Mouse Click & Touch
+    if (this.game.input.activePointer.isDown && this.game.physics.arcade.distanceToPointer(this) > 15) {
+      this.game.physics.arcade.moveToPointer(this, this.speed);
+      if (this.body.velocity.x > 0) this.play('fly-right');
+      if (this.body.velocity.x < 0) this.play('fly-left');
+    }
+
   }
 
   fireParticles() {
